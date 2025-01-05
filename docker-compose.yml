@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  discord-bot:
+    build: .
+    container_name: discord-bot
+    restart: always
+    env_file:
+      - .env  # Load environment variables
+    ports:
+      - "3000:3000"  # Map container port 3000 to host port 3000
+    volumes:
+      - .:/app  # Bind mount project directory
+      - /app/node_modules  # Prevent overwriting node_modules
+      - .env:/app/.env  # Bind mount .env file for live updates
+    command: ["nodemon", "--legacy-watch", "index.js"]
+
